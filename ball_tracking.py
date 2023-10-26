@@ -309,8 +309,8 @@ else:
 pts = deque(maxlen=args["buffer"])
 tims = deque(maxlen=args["buffer"])
 fpsqueue = deque(maxlen=240)
-replay1queue = deque(maxlen=240)
-replay2queue = deque(maxlen=240)
+replay1queue = deque(maxlen=600)
+replay2queue = deque(maxlen=600)
 
 webcamindex = 0
 
@@ -368,6 +368,10 @@ if parser.has_option('putting', 'exposure'):
     exposure=float(parser.get('putting', 'exposure'))
 else:
     exposure = vs.get(cv2.CAP_PROP_EXPOSURE)
+if parser.has_option('putting', 'autowb'):
+    autowb=float(parser.get('putting', 'autowb'))
+else:
+    autowb = vs.get(cv2.CAP_PROP_AUTO_WB)
 if parser.has_option('putting', 'whiteBalanceBlue'):
     whiteBalanceBlue=float(parser.get('putting', 'whiteBalanceBlue'))
 else:
@@ -376,21 +380,73 @@ if parser.has_option('putting', 'whiteBalanceRed'):
     whiteBalanceRed=float(parser.get('putting', 'whiteBalanceRed'))
 else:
     whiteBalanceRed = vs.get(cv2.CAP_PROP_WHITE_BALANCE_RED_V)
-    
+if parser.has_option('putting', 'brightness'):
+    brightness=float(parser.get('putting', 'brightness'))
+else:
+    brightness = vs.get(cv2.CAP_PROP_BRIGHTNESS)
+if parser.has_option('putting', 'contrast'):
+    contrast=float(parser.get('putting', 'contrast'))
+else:
+    contrast = vs.get(cv2.CAP_PROP_CONTRAST)
+if parser.has_option('putting', 'hue'):
+    hue=float(parser.get('putting', 'hue'))
+else:
+    hue = vs.get(cv2.CAP_PROP_HUE)
+if parser.has_option('putting', 'gain'):
+    gain=float(parser.get('putting', 'gain'))
+else:
+    gain = vs.get(cv2.CAP_PROP_HUE)
+if parser.has_option('putting', 'monochrome'):
+    monochrome=float(parser.get('putting', 'monochrome'))
+else:
+    monochrome = vs.get(cv2.CAP_PROP_MONOCHROME)
+if parser.has_option('putting', 'sharpness'):
+    sharpness=float(parser.get('putting', 'sharpness'))
+else:
+    sharpness = vs.get(cv2.CAP_PROP_SHARPNESS)
+if parser.has_option('putting', 'autoexposure'):
+    autoexposure=float(parser.get('putting', 'autoexposure'))
+else:
+    autoexposure = vs.get(cv2.CAP_PROP_AUTO_EXPOSURE)
+if parser.has_option('putting', 'gamma'):
+    gamma=float(parser.get('putting', 'gamma'))
+else:
+    gamma = vs.get(cv2.CAP_PROP_GAMMA)
+if parser.has_option('putting', 'zoom'):
+    zoom=float(parser.get('putting', 'zoom'))
+else:
+    zoom = vs.get(cv2.CAP_PROP_ZOOM)
+    gamma = vs.get(cv2.CAP_PROP_GAMMA)
+if parser.has_option('putting', 'focus'):
+    focus=float(parser.get('putting', 'focus'))
+else:
+    focus = vs.get(cv2.CAP_PROP_FOCUS)
+if parser.has_option('putting', 'autofocus'):
+    autofocus=float(parser.get('putting', 'autofocus'))
+else:
+    autofocus = vs.get(cv2.CAP_PROP_AUTOFOCUS)
+
 vs.set(cv2.CAP_PROP_SATURATION,saturation)
 vs.set(cv2.CAP_PROP_EXPOSURE,exposure)
+vs.set(cv2.CAP_PROP_AUTO_WB,autowb)
 vs.set(cv2.CAP_PROP_WHITE_BALANCE_BLUE_U,whiteBalanceBlue)
 vs.set(cv2.CAP_PROP_WHITE_BALANCE_RED_V,whiteBalanceRed)
-
+vs.set(cv2.CAP_PROP_BRIGHTNESS,brightness)
+vs.set(cv2.CAP_PROP_CONTRAST,contrast)
+vs.set(cv2.CAP_PROP_HUE,hue)
+vs.set(cv2.CAP_PROP_GAIN,gain)
+vs.set(cv2.CAP_PROP_MONOCHROME,monochrome)
+vs.set(cv2.CAP_PROP_SHARPNESS,sharpness)
+vs.set(cv2.CAP_PROP_AUTO_EXPOSURE,autoexposure)
+vs.set(cv2.CAP_PROP_GAMMA,gamma)
+vs.set(cv2.CAP_PROP_ZOOM,zoom)
+vs.set(cv2.CAP_PROP_FOCUS,focus)
+vs.set(cv2.CAP_PROP_AUTOFOCUS,autofocus)
 
 
 print("video_fps: "+str(video_fps))
 print("height: "+str(height))
 print("width: "+str(width))
-print("saturation: "+str(saturation))
-print("exposure: "+str(exposure))
-
-
 
 if replaycam == 1:
     if replaycamindex == webcamindex:
@@ -1247,19 +1303,40 @@ while True:
 
             exposure = vs.get(cv2.CAP_PROP_EXPOSURE)
             saturation = vs.get(cv2.CAP_PROP_SATURATION)
+            autowb = vs.get(cv2.CAP_PROP_AUTO_WB)
             whiteBalanceBlue = vs.get(cv2.CAP_PROP_WHITE_BALANCE_BLUE_U)
             whiteBalanceRed = vs.get(cv2.CAP_PROP_WHITE_BALANCE_RED_V)
+            brightness = vs.get(cv2.CAP_PROP_BRIGHTNESS)
+            contrast = vs.get(cv2.CAP_PROP_CONTRAST)
+            hue = vs.get(cv2.CAP_PROP_HUE)
+            gain = vs.get(cv2.CAP_PROP_GAIN)
+            monochrome = vs.get(cv2.CAP_PROP_MONOCHROME)
+            sharpness = vs.get(cv2.CAP_PROP_SHARPNESS)
+            autoexposure = vs.get(cv2.CAP_PROP_AUTO_EXPOSURE)
+            gamma = vs.get(cv2.CAP_PROP_GAMMA)
+            zoom = vs.get(cv2.CAP_PROP_ZOOM)
+            focus = vs.get(cv2.CAP_PROP_FOCUS)
+            autofocus = vs.get(cv2.CAP_PROP_AUTOFOCUS)
 
 
-            print("exposure: "+str(exposure))
-            print("saturation: "+str(saturation))
-            print("whiteBalanceBlue: "+str(whiteBalanceBlue))
-            print("whiteBalanceRed: "+str(whiteBalanceRed))
+            print("Saving Camera Settings to config.ini for restart")
 
             parser.set('putting', 'exposure', str(exposure))
             parser.set('putting', 'saturation', str(saturation))
+            parser.set('putting', 'autowb', str(autowb))
             parser.set('putting', 'whiteBalanceBlue', str(whiteBalanceBlue))
             parser.set('putting', 'whiteBalanceRed', str(whiteBalanceRed))
+            parser.set('putting', 'brightness', str(brightness))
+            parser.set('putting', 'contrast', str(contrast))
+            parser.set('putting', 'hue', str(hue))
+            parser.set('putting', 'gain', str(gain))
+            parser.set('putting', 'monochrome', str(monochrome))
+            parser.set('putting', 'sharpness', str(sharpness))
+            parser.set('putting', 'autoexposure', str(autoexposure))
+            parser.set('putting', 'gamma', str(gamma))
+            parser.set('putting', 'zoom', str(zoom))
+            parser.set('putting', 'focus', str(focus))
+            parser.set('putting', 'autofocus', str(autofocus))
 
             parser.write(open(CFG_FILE, "w"))
 
