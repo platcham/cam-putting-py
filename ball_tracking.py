@@ -706,16 +706,16 @@ while True:
         ret, frame = vs.read()
         if ps4 == 1 and ret == True:
             leftframe, rightframe = decode(frame)
-            frame = leftframe
-            width = 632
+            frame = leftframe[0:400,20:632]
+            width = 612
             height = 400
         # get replaycam frame
         if replaycam == 1:
             ret2, origframe2 = vs2.read()
             if replaycamps4 == 1 and ret2 == True:
                 leftframe2, rightframe2 = decode(origframe2)
-                origframe2 = leftframe2
-                replaycamwidth = 632
+                origframe2 = leftframe2[0:400,20:632]
+                replaycamwidth = 612
                 replaycamheight = 400
         # flip image on y-axis
         if flipImage == 1 and videofile == False:	
