@@ -36,6 +36,8 @@ timeSinceTriggered = 0
 replaycamps4 = 0
 replay = False
 noOfStarts = 0
+replayavail = False
+frameskip = 0
 
 
 
@@ -96,7 +98,10 @@ if parser.has_option('putting', 'customhsv'):
     print(customhsv)
 else:
     customhsv={}
-
+if parser.has_option('putting', 'showreplay'):
+    showreplay=int(parser.get('putting', 'showreplay'))
+else:
+    showreplay=0
 if parser.has_option('putting', 'replaycam'):
     replaycam=int(parser.get('putting', 'replaycam'))
 else:
@@ -111,9 +116,6 @@ else:
     replaycamps4=0
 
 # Globals
-
-# grab the replay video
-vs_replay1 = cv2.VideoCapture('Replay1.mp4')
 
 # Detection Gateway
 x1=sx2+10
@@ -505,9 +507,6 @@ if type(video_fps) == float:
 
 # we are using x264 codec for mp4
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-#replay1 = cv2.VideoWriter('Replay1.mp4', apiPreference=0, fourcc=fourcc,fps=120, frameSize=(int(width), int(height)))
-#replay2 = cv2.VideoWriter('Replay2.mp4', apiPreference=0, fourcc=fourcc,fps=120, frameSize=(int(width), int(height)))
-#out1 = cv2.VideoWriter('Ball-New.mp4', apiPreference=0, fourcc=fourcc,fps=video_fps[0], frameSize=(int(width), int(height)))
 out2 = cv2.VideoWriter('Calibration.mp4', apiPreference=0, fourcc=fourcc,fps=120, frameSize=(int(width), int(height)))
 
 
@@ -1227,7 +1226,10 @@ while True:
             replay1.release()
             print("Replay 1 released")
             # grab the replay video
-            # vs_replay1 = cv2.VideoCapture('Replay1.mp4')
+            global vs_replay1
+            vs_replay1 = cv2.VideoCapture('replay1/Replay1_'+ str(noOfStarts) +'.mp4')
+            replayavail = True
+            frameskip = 0
             replay1queue.clear()
             if replaycam == 1:
                 while len(replay2queue) > 0:
@@ -1243,11 +1245,15 @@ while True:
     except Exception as e:
         print(e)
 
-    # if vs_replay1:
-    #     # grab the current frame from Replay1
-    #     _, frame_vs_replay1 = vs_replay1.read()
-    #     if frame_vs_replay1 is not None:
-    #         cv2.imshow("Replay1", frame_vs_replay1)
+    if showreplay == 1 and replayavail == True:
+        frameskip = frameskip + 1
+        if frameskip%2 == 0:
+            # grab the current frame from Replay1
+            _, frame_vs_replay1 = vs_replay1.read()
+            if frame_vs_replay1 is not None:
+                cv2.imshow("Replay1", frame_vs_replay1)
+            else:
+                vs_replay1 = cv2.VideoCapture('replay1/Replay1_'+ str(noOfStarts) +'.mp4')
   
     # show main putting window
     
