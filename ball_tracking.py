@@ -13,11 +13,27 @@ from decimal import *
 import requests
 from configparser import ConfigParser
 import ast
+import os
+import shutil
 
 parser = ConfigParser()
 CFG_FILE = 'config.ini'
 
 parser.read(CFG_FILE)
+
+## Check for folder replay1 and replay2 and empty if necessary
+
+if os.path.exists('replay1'):
+    shutil.rmtree('replay1')
+    time.sleep(1)
+else:
+    os.mkdir('replay1')
+
+if os.path.exists('replay2'):
+    shutil.rmtree('replay2')
+    time.sleep(1)
+os.mkdir('replay2')
+
 
 # Startpoint Zone
 
