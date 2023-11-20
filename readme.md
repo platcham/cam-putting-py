@@ -10,9 +10,11 @@ These connectors integrate the putting app to use in GSPRO
 
 ## Setup:
 
-You can find a general setup video with the original R10 connector here: https://youtu.be/ShtEW0fziwM
+Here is a setup video from Roxor Golf / Bruce with the R10 Bluetooth connector https://www.youtube.com/watch?v=Ym1ozT9Ovew
 
-A detailed video for tuning in the color options with the d - debug option from dialup56k here: https://www.youtube.com/watch?v=64npQCFaDAQ&t=583s
+You can find a general setup video with the my original R10 connector using the e6 method here: https://youtu.be/ShtEW0fziwM
+
+A detailed video for tuning in the color options with the d - debug option from dialup56k with some of the theory behind here: https://www.youtube.com/watch?v=64npQCFaDAQ&t=583s
 
 Here is also a good video on setup to reach 60 fps from jason https://www.youtube.com/watch?v=wy62vY95G_E&ab_channel=Jason
 
