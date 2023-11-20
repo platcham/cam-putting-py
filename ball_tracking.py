@@ -932,6 +932,7 @@ while True:
                                 #print(filtered)
                                 if len(filtered) >= (startminimum/2):
                                     print("New Start Found")
+                                    replayavail = False
                                     noOfStarts = noOfStarts + 1
                                     lastShotSpeed = 0
                                     pts.clear()
@@ -1253,6 +1254,7 @@ while True:
             if frame_vs_replay1 is not None:
                 cv2.imshow("Replay1", frame_vs_replay1)
             else:
+                print("Reset Replay Video")
                 vs_replay1 = cv2.VideoCapture('replay1/Replay1_'+ str(noOfStarts) +'.mp4')
   
     # show main putting window
