@@ -24,16 +24,22 @@ parser.read(CFG_FILE)
 ## Check for folder replay1 and replay2 and empty if necessary
 
 if os.path.exists('replay1'):
-    shutil.rmtree('replay1')
-    time.sleep(1)
-    os.mkdir('replay1')
+    try:
+        shutil.rmtree('replay1')
+        time.sleep(1)
+        os.mkdir('replay1')
+    except os.error as e:  # This is the correct syntax
+        print(e)
 else:
     os.mkdir('replay1')
 
 if os.path.exists('replay2'):
-    shutil.rmtree('replay2')
-    time.sleep(1)
-    os.mkdir('replay2')
+    try:
+        shutil.rmtree('replay2')
+        time.sleep(1)
+        os.mkdir('replay2')
+    except os.error as e:  # This is the correct syntax
+        print(e)
 else:
     os.mkdir('replay2')
 
@@ -1257,6 +1263,8 @@ while True:
                     replay2.write(replay2frame)             
                 replay2.release()
                 print("Replay 2 released")
+                global vs_replay2
+                vs_replay2 = cv2.VideoCapture('replay2/Replay2_'+ str(noOfStarts) +'.mp4')
                 replay2queue.clear()
             replaytrigger = 0
             timeSinceTriggered = 0
@@ -1275,6 +1283,14 @@ while True:
             else:
                 print("Reset Replay Video")
                 vs_replay1 = cv2.VideoCapture('replay1/Replay1_'+ str(noOfStarts) +'.mp4')
+            if replaycam == 1:
+                _, frame_vs_replay2 = vs_replay2.read()
+                if frame_vs_replay2 is not None:
+                    cv2.imshow("Replay2", frame_vs_replay2)
+                                
+                else:
+                    print("Reset Replay Video")
+                    vs_replay2 = cv2.VideoCapture('replay2/Replay2_'+ str(noOfStarts) +'.mp4')    
   
     # show main putting window
     
