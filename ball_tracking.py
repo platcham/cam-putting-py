@@ -26,13 +26,16 @@ parser.read(CFG_FILE)
 if os.path.exists('replay1'):
     shutil.rmtree('replay1')
     time.sleep(1)
+    os.mkdir('replay1')
 else:
     os.mkdir('replay1')
 
 if os.path.exists('replay2'):
     shutil.rmtree('replay2')
     time.sleep(1)
-os.mkdir('replay2')
+    os.mkdir('replay2')
+else:
+    os.mkdir('replay2')
 
 
 # Startpoint Zone
