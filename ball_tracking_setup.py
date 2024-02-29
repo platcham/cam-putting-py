@@ -87,6 +87,10 @@ if parser.has_option('putting', 'customhsv'):
     print(customhsv)
 else:
     customhsv={}
+if parser.has_option('putting', 'angleAdjust'):
+	hlaAdjust=float(parser.get('putting', 'angleAdjust'))
+else:
+	hlaAdjust=0.0
 
 
 # Detection Gateway
@@ -834,9 +838,9 @@ while True:
                             else:
                                 if ( x > coord[1][0] and entered == True and started == True):
                                     #calculate hla for circle and pts[0]
-                                    previousHLA = (GetAngle((startCircle[0],startCircle[1]),pts[0])*-1)
+                                    previousHLA = (GetAngle((startCircle[0],startCircle[1]),pts[0])*-1) + hlaAdjust
                                     #calculate hla for circle and now
-                                    currentHLA = (GetAngle((startCircle[0],startCircle[1]),center)*-1)
+                                    currentHLA = (GetAngle((startCircle[0],startCircle[1]),center)*-1) + hlaAdjust
                                     #check if HLA is inverted
                                     similarHLA = False
                                     if left == True:
@@ -937,7 +941,7 @@ while True:
             #     totalSpin: ballData.TotalSpin,
             totalSpin = 0
             #     hla: ballData.LaunchDirection,
-            launchDirection = (GetAngle((startCircle[0],startCircle[1]),endPos)*-1)
+            launchDirection = (GetAngle((startCircle[0],startCircle[1]),endPos)*-1) + hlaAdjust
             print("HLA: Line"+str((startCircle[0],startCircle[1]))+" Angle "+str(launchDirection))
             #Decimal(launchDirection);
             if (launchDirection > -40 and launchDirection < 40):
