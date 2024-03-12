@@ -1,3 +1,6 @@
+Forked version of Alexx's webcam putting to add a horizontal launch angle adjustment. 
+
+
 # Webcam based putting simulation for GSPRO utilizing the R10 and MLM2Pro connector:
 
 Calculation includes BallSpeed in MPH and HLA of the putt. Initial insperation on the solution comes from natter where I forked the initial OpenCV code.
